@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HASoftware Login</title>
+</head>
+
+<body>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } 
+    from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyCBbjsU-z6AFUK99WrQruHAHorIDXl9-7E",
+      authDomain: "hasoftware-auth.firebaseapp.com",
+      projectId: "hasoftware-auth",
+      storageBucket: "hasoftware-auth.appspot.com",
+      messagingSenderId: "104081174051",
+      appId: "1:104081174051:web:9c2d236a238501e9ca8b96"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+  
+    window.login = async function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+  
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+  
+        alert("Welcome " + user.email);
+  
+        // redirect after login
+        window.location.href = "https://calendar.app.google/wpiNTqkgd7HGfLnbA";
+  
+      } catch (error) {
+        console.error(error);
+        alert("Login failed: " + error.message);
+      }
+    };
+  </script>
+  
+  <!-- UI -->
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  
+<button onclick="login()">Login</button>
+</body>
+</html>
